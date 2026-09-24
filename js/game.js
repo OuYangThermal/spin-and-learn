@@ -246,6 +246,7 @@
     hide($('btn-correct'));
     hide($('btn-tryagain'));
     hide($('btn-hint'));
+    hide($('btn-skip')); // after a correct answer, only "Next →" remains
     spinSequence(0).then(function () {
       spinning = false;
       state.phase = 'rewarded';
