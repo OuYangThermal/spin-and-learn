@@ -1,0 +1,41 @@
+SPIN & LEARN — COMMERCIAL / CREATOR LICENSE ($29)
+
+Last updated: 2026-09-24
+
+WHAT YOU ARE BUYING
+-------------------
+A downloadable copy of "Spin & Learn — Classroom Reward Spinner", a single
+standalone HTML file plus content packs and a teacher guide, with expanded
+rights for creators. The free online demo lets you play in a browser; this
+license is for the downloadable version plus creator rights.
+
+WHAT YOU MAY DO
+---------------
+Everything in the Personal Classroom License, PLUS:
+
+1. Modify the HTML, CSS, and JavaScript of the game to make your own version.
+2. Publish your derivative games — free or paid — on any platform.
+3. Sell your derivative games and keep the revenue.
+
+A "derivative" is a game built from or based on this one that you have changed
+in a meaningful way: new theme, new art, new content packs, new mechanics, a
+new name. A re-skin or re-word of the original still counts as a derivative if
+you made real changes; the point is that the published game is your own work
+built on this foundation.
+
+WHAT YOU MAY NOT DO
+-------------------
+You may NOT:
+
+1. Resell, share, or redistribute the ORIGINAL template/engine files themselves
+   — the unmodified or lightly renamed copy of Spin & Learn as delivered.
+   Sell your derivative, not the template.
+2. Upload the original files to any public or semi-public location
+   (free-download sites, shared drives, forums, marketplaces as a "template").
+3. Pass your license to another person or organization.
+
+In short: build on it and sell what you build. Don't sell the thing as you
+received it.
+
+No accounts, no student data, no subscriptions. You own this copy outright for
+the licensed uses above.

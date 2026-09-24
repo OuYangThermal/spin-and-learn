@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spin &amp; Learn — Classroom Reward Spinner</title>
+  <link rel="icon" href="assets/icon.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="app-header card">
+    <div class="brand">
+      <img id="logo" src="assets/logo.svg" alt="Spin & Learn logo">
+      <div class="brand-text">
+        <h1>Spin &amp; Learn</h1>
+        <p class="tagline">Paste a word list. Ask. Spin. Earn stars.</p>
+      </div>
+    </div>
+    <div class="score-strip" aria-live="polite">
+      <div class="score-pill">
+        <span aria-hidden="true">⭐</span><span id="star-count">0</span>
+      </div>
+      <div class="score-pill streak">
+        <span aria-hidden="true">🔥</span><span id="streak-count">0</span>
+        <span class="score-label">streak</span>
+      </div>
+    </div>
+    <nav class="header-buttons">
+      <button id="btn-sound" class="icon-btn" title="Sound on/off" aria-label="Toggle sound">🔊</button>
+      <button id="btn-fullscreen" class="icon-btn" title="Fullscreen" aria-label="Toggle fullscreen">⛶</button>
+      <button id="btn-wordlist" class="btn btn-accent">📝 Word Lists</button>
+      <button id="btn-reset" class="btn btn-ghost">↺ Reset</button>
+    </nav>
+  </header>
+
+  <div id="hint-strip">
+    <span id="hint-text">
+      <span>1. Paste your words</span><span class="hint-sep">•</span>
+      <span>2. Ask a question</span><span class="hint-sep">•</span>
+      <span>3. Spin for stars</span>
+    </span>
+    <button id="hint-dismiss" aria-label="Dismiss hint">✕</button>
+  </div>
+
+  <main class="layout">
+    <section class="wheel-wrap card">
+      <div id="pointer" aria-hidden="true"></div>
+      <div id="wheel" role="img" aria-label="Reward wheel">
+        <div id="wheel-center">
+          <div id="wheel-center-stars">⭐ 0</div>
+          <div class="wheel-center-sub">class stars</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="question-card" class="card">
+      <div class="card-kicker">❓ Question</div>
+      <div id="q-text">Loading…</div>
+      <div id="q-hint" class="hidden"></div>
+      <div id="a-text" class="hidden"></div>
+      <div class="card-buttons">
+        <button id="btn-hint" class="btn btn-ghost">💡 Hint</button>
+        <button id="btn-show-answer" class="btn btn-primary">👀 Show Answer</button>
+        <button id="btn-correct" class="btn btn-primary hidden">Correct ✓</button>
+        <button id="btn-tryagain" class="btn btn-accent hidden">Try Again 💪</button>
+        <button id="btn-skip" class="btn btn-ghost">Skip →</button>
+        <button id="btn-next" class="btn btn-primary hidden">Next →</button>
+      </div>
+    </section>
+  </main>
+
+  <div id="reveal-overlay" class="hidden">
+    <div class="reveal-card">
+      <div id="reveal-emoji">⭐</div>
+      <div id="reveal-title">+1 Star</div>
+      <div id="reveal-sub"></div>
+      <button id="btn-reveal-ok" class="btn btn-primary">OK</button>
+    </div>
+  </div>
+
+  <aside id="editor-panel" aria-label="Word list editor">
+    <div class="editor-head">
+      <h2>📝 Word Lists</h2>
+      <button id="editor-close" class="icon-btn" aria-label="Close editor">✕</button>
+    </div>
+    <div class="editor-section">
+      <h3>Starter packs</h3>
+      <div id="pack-list"></div>
+    </div>
+    <div class="editor-section">
+      <h3>Your list</h3>
+      <textarea id="custom-textarea" rows="8" placeholder="question | answer | hint"></textarea>
+      <div class="editor-buttons">
+        <button id="btn-use-list" class="btn btn-primary">Use This List</button>
+        <button id="btn-add-list" class="btn btn-accent">Add to List</button>
+        <button id="btn-clear-list" class="btn btn-ghost">Clear</button>
+      </div>
+      <div class="editor-buttons">
+        <button id="btn-import" class="btn btn-ghost">⬆ Import</button>
+        <input type="file" id="file-import" accept=".json,.csv" hidden>
+        <button id="btn-export-json" class="btn btn-ghost">⬇ JSON</button>
+        <button id="btn-export-csv" class="btn btn-ghost">⬇ CSV</button>
+      </div>
+    </div>
+    <div id="editor-help" class="editor-section"></div>
+    <div id="editor-status" role="status"></div>
+  </aside>
+
+  <script src="js/config.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/spinner.js"></script>
+  <script src="js/content.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/editor.js"></script>
+</body>
+</html>

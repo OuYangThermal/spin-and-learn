@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Spin and Learn app icon">
+  <title>Spin &amp; Learn icon</title>
+  <!-- Rounded-square teal background -->
+  <rect x="16" y="16" width="480" height="480" rx="112" fill="#14B8A6"/>
+  <!-- White circle -->
+  <circle cx="256" cy="256" r="160" fill="#FFFFFF"/>
+  <!-- Yellow star -->
+  <path d="M 256.0 138.0 L 228.4 218.0 L 143.8 219.5 L 211.3 270.5 L 186.6 351.5 L 256.0 303.0 L 325.4 351.5 L 300.7 270.5 L 368.2 219.5 L 283.6 218.0 Z"
+        fill="#FACC15" stroke="#FB923C" stroke-width="22" stroke-linejoin="round"/>
+</svg>

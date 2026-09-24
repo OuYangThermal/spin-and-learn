@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spin &amp; Learn — Classroom Reward Spinner</title>
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9IlNwaW4gYW5kIExlYXJuIGFwcCBpY29uIj4KICA8dGl0bGU+U3BpbiAmYW1wOyBMZWFybiBpY29uPC90aXRsZT4KICA8IS0tIFJvdW5kZWQtc3F1YXJlIHRlYWwgYmFja2dyb3VuZCAtLT4KICA8cmVjdCB4PSIxNiIgeT0iMTYiIHdpZHRoPSI0ODAiIGhlaWdodD0iNDgwIiByeD0iMTEyIiBmaWxsPSIjMTRCOEE2Ii8+CiAgPCEtLSBXaGl0ZSBjaXJjbGUgLS0+CiAgPGNpcmNsZSBjeD0iMjU2IiBjeT0iMjU2IiByPSIxNjAiIGZpbGw9IiNGRkZGRkYiLz4KICA8IS0tIFllbGxvdyBzdGFyIC0tPgogIDxwYXRoIGQ9Ik0gMjU2LjAgMTM4LjAgTCAyMjguNCAyMTguMCBMIDE0My44IDIxOS41IEwgMjExLjMgMjcwLjUgTCAxODYuNiAzNTEuNSBMIDI1Ni4wIDMwMy4wIEwgMzI1LjQgMzUxLjUgTCAzMDAuNyAyNzAuNSBMIDM2OC4yIDIxOS41IEwgMjgzLjYgMjE4LjAgWiIKICAgICAgICBmaWxsPSIjRkFDQzE1IiBzdHJva2U9IiNGQjkyM0MiIHN0cm9rZS13aWR0aD0iMjIiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==">
+  <style>
+/* ============================================================
+   Spin & Learn — Classroom Reward Spinner
+   Bright classroom theme: light sky/mint background, white cards,
+   teal primary buttons, orange accents. Big touch targets.
+   No dark backgrounds, no neon — bright and friendly only.
+   ============================================================ */
+:root {
+  --teal: #14B8A6;
+  --teal-dark: #0D9488;
+  --teal-soft: #CCFBF1;
+  --orange: #FB923C;
+  --orange-dark: #EA7C28;
+  --ink: #134E4A;
+  --muted: #5F7371;
+  --card: #FFFFFF;
+  --radius: 24px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Baloo 2", "Nunito", "Comic Sans MS", "Chalkboard SE",
+    "Segoe UI Rounded", "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-size: calc(15px + 0.6vmin);
+  line-height: 1.45;
+  color: var(--ink);
+  background: linear-gradient(160deg, #E0F2FE 0%, #F0FDF4 48%, #D1FAE5 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 12px 12px 40px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 28px rgba(13, 148, 136, 0.14);
+  padding: 20px;
+}
+
+/* ---------------- header ---------------- */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#logo {
+  width: 56px;
+  height: 56px;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: calc(20px + 1.4vmin);
+  color: var(--teal-dark);
+}
+
+.tagline {
+  margin: 0;
+  color: var(--muted);
+  font-size: calc(12px + 0.6vmin);
+}
+
+.score-strip {
+  display: flex;
+  gap: 10px;
+}
+
+.score-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #FFFBEB;
+  border: 2px solid #FDE68A;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: calc(18px + 1vmin);
+  font-weight: 900;
+}
+
+.score-pill.streak {
+  background: #FFF7ED;
+  border-color: #FDBA74;
+}
+
+.score-label {
+  font-size: 0.65em;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* ---------------- buttons ---------------- */
+.btn {
+  min-height: 56px;
+  padding: 12px 22px;
+  border: 0;
+  border-radius: 16px;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.btn:active {
+  transform: translateY(2px);
+}
+
+.btn-primary {
+  background: var(--teal);
+  color: #fff;
+  box-shadow: 0 4px 0 var(--teal-dark);
+}
+
+.btn-primary:active {
+  box-shadow: 0 1px 0 var(--teal-dark);
+}
+
+.btn-accent {
+  background: var(--orange);
+  color: #fff;
+  box-shadow: 0 4px 0 var(--orange-dark);
+}
+
+.btn-accent:active {
+  box-shadow: 0 1px 0 var(--orange-dark);
+}
+
+.btn-ghost {
+  background: #F0FDFA;
+  color: var(--ink);
+  border: 2px solid #99F6E4;
+}
+
+.icon-btn {
+  min-width: 56px;
+  min-height: 56px;
+  border-radius: 50%;
+  border: 2px solid #99F6E4;
+  background: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------------- hint strip ---------------- */
+#hint-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  max-width: 1100px;
+  margin: 12px auto 0;
+  background: #FFFBEB;
+  border: 2px dashed #FCD34D;
+  border-radius: 16px;
+  padding: 10px 16px;
+  font-weight: 700;
+  color: #92400E;
+}
+
+#hint-text {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hint-sep {
+  color: #F59E0B;
+}
+
+#hint-dismiss {
+  border: 0;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+  color: #92400E;
+}
+
+/* ---------------- layout ---------------- */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  max-width: 1100px;
+  margin: 16px auto 0;
+}
+
+@media (min-width: 920px) {
+  .layout {
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: start;
+  }
+}
+
+/* ---------------- wheel ---------------- */
+.wheel-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+}
+
+#pointer {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 30px solid var(--orange);
+  margin-bottom: -10px;
+  z-index: 6;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.18));
+}
+
+#wheel {
+  position: relative;
+  width: min(80vmin, 520px);
+  height: min(80vmin, 520px);
+  border-radius: 50%;
+  background: #F8FEFD;
+  border: 10px solid var(--teal);
+  box-shadow: 0 14px 34px rgba(20, 184, 166, 0.28), inset 0 0 0 6px #F0FDFA;
+}
+
+.cell {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 84px;
+  height: 84px;
+  margin: -42px 0 0 -42px;
+}
+
+.cell-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: var(--tilt, none);
+  transition: transform 0.12s ease, background 0.12s ease, box-shadow 0.12s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+.cell-emoji {
+  font-size: calc(17px + 1.5vmin);
+  line-height: 1.15;
+}
+
+.cell-label {
+  font-size: calc(10px + 0.7vmin);
+  font-weight: 800;
+}
+
+.kind-stars .cell-inner {
+  background: #FEF9C3;
+}
+
+.kind-cheer .cell-inner {
+  background: #FFEDD5;
+}
+
+.kind-again .cell-inner {
+  background: #EDE9FE;
+}
+
+.kind-mystery .cell-inner {
+  background: #FCE7F3;
+}
+
+.cell.lit {
+  z-index: 3;
+}
+
+.cell.lit .cell-inner {
+  transform: var(--tilt, none) scale(1.2);
+  background: var(--teal);
+  box-shadow: 0 0 0 4px #ffffff, 0 0 24px rgba(20, 184, 166, 0.85);
+}
+
+.cell.lit .cell-label {
+  color: #fff;
+}
+
+#wheel-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 34%;
+  height: 34%;
+  background: #fff;
+  border: 6px solid #FDE68A;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  z-index: 4;
+}
+
+#wheel-center-stars {
+  font-size: calc(19px + 2.2vmin);
+  font-weight: 900;
+}
+
+.wheel-center-sub {
+  font-size: calc(10px + 0.7vmin);
+  color: var(--muted);
+  font-weight: 700;
+}
+
+/* ---------------- question card ---------------- */
+#question-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.card-kicker {
+  font-weight: 900;
+  color: var(--teal-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.85em;
+}
+
+#q-text {
+  font-size: calc(20px + 1.6vmin);
+  font-weight: 800;
+}
+
+#q-hint {
+  background: #FFFBEB;
+  border: 2px dashed #FCD34D;
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-style: italic;
+  color: #92400E;
+}
+
+#a-text {
+  background: var(--teal-soft);
+  border-radius: 14px;
+  padding: 12px 16px;
+  font-size: calc(18px + 1.2vmin);
+  font-weight: 800;
+  color: var(--teal-dark);
+}
+
+.card-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* ---------------- reveal overlay ---------------- */
+#reveal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(240, 253, 250, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.reveal-card {
+  background: #fff;
+  border-radius: 28px;
+  padding: 36px 52px;
+  text-align: center;
+  box-shadow: 0 18px 50px rgba(13, 148, 136, 0.28);
+  border: 4px solid #FDE68A;
+  animation: reveal-pop 0.32s ease;
+  max-width: 92vw;
+}
+
+@keyframes reveal-pop {
+  from {
+    transform: scale(0.82);
+    opacity: 0;
+  }
+}
+
+#reveal-emoji {
+  font-size: calc(52px + 6vmin);
+  line-height: 1.1;
+}
+
+#reveal-title {
+  font-size: calc(26px + 2.6vmin);
+  font-weight: 900;
+  color: var(--teal-dark);
+  margin: 8px 0 4px;
+}
+
+#reveal-sub {
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+/* ---------------- editor drawer ---------------- */
+#editor-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(430px, 94vw);
+  background: #fff;
+  border-radius: 24px 0 0 24px;
+  box-shadow: -14px 0 44px rgba(13, 148, 136, 0.22);
+  transform: translateX(106%);
+  transition: transform 0.28s ease;
+  z-index: 900;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+#editor-panel.open {
+  transform: translateX(0);
+}
+
+.editor-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.editor-head h2 {
+  margin: 0;
+  color: var(--teal-dark);
+}
+
+.editor-section {
+  margin-top: 18px;
+}
+
+.editor-section h3 {
+  margin: 0 0 8px;
+  font-size: 1em;
+  color: var(--teal-dark);
+}
+
+#pack-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pack-btn {
+  min-height: 48px;
+  padding: 8px 16px;
+}
+
+#custom-textarea {
+  width: 100%;
+  border: 2px solid #99F6E4;
+  border-radius: 14px;
+  padding: 12px;
+  font: inherit;
+  resize: vertical;
+}
+
+.editor-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.editor-buttons .btn {
+  min-height: 52px;
+  padding: 10px 16px;
+  font-size: 0.95em;
+}
+
+#editor-help {
+  background: #F0FDFA;
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 0.92em;
+}
+
+#editor-help code {
+  background: #fff;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.format-line {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+#editor-status {
+  margin-top: 12px;
+  font-weight: 800;
+  color: var(--teal-dark);
+  min-height: 1.4em;
+}
+
+/* ---------------- confetti ---------------- */
+.confetti-piece {
+  position: fixed;
+  top: -48px;
+  z-index: 1200;
+  pointer-events: none;
+  animation-name: confetti-fall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes confetti-fall {
+  to {
+    transform: translateY(115vh) rotate(560deg);
+  }
+}
+
+@media (max-width: 520px) {
+  body {
+    padding: 8px 8px 32px;
+  }
+
+  .app-header {
+    justify-content: center;
+  }
+
+  .brand-text {
+    text-align: left;
+  }
+}
+
+</style>
+</head>
+<body>
+  <header class="app-header card">
+    <div class="brand">
+      <img id="logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9IlNwaW4gYW5kIExlYXJuIGxvZ286IGEgY2lyY3VsYXIgc3BpbiBhcnJvdyBjaXJjbGluZyBhIHN0YXIiPgogIDx0aXRsZT5TcGluICZhbXA7IExlYXJuIGxvZ288L3RpdGxlPgogIDwhLS0gQ29uZmV0dGkgZG90cyAtLT4KICA8Y2lyY2xlIGN4PSI3OCIgY3k9IjM2OCIgcj0iMTQiIGZpbGw9IiMxNEI4QTYiLz4KICA8Y2lyY2xlIGN4PSI0MzYiIGN5PSIxMjgiIHI9IjE2IiBmaWxsPSIjRkI5MjNDIi8+CiAgPGNpcmNsZSBjeD0iNDQ4IiBjeT0iMzUyIiByPSIxMiIgZmlsbD0iI0ZBQ0MxNSIvPgogIDxjaXJjbGUgY3g9IjkyIiBjeT0iMTI4IiByPSIxMiIgZmlsbD0iI0ZCOTIzQyIvPgogIDxjaXJjbGUgY3g9IjM5MiIgY3k9IjQyNCIgcj0iMTQiIGZpbGw9IiMxNEI4QTYiLz4KICA8IS0tIENpcmN1bGFyIHNwaW4gYXJyb3cgKGNsb2Nrd2lzZSksIHRlYWwsIHRoaWNrIHJvdW5kZWQgc3Ryb2tlIC0tPgogIDxwYXRoIGQ9Ik0gMjU2IDc2IEEgMTgwIDE4MCAwIDEgMSAxMDAuMSAxNjYiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzE0QjhBNiIgc3Ryb2tlLXdpZHRoPSI0NCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CiAgPCEtLSBBcnJvd2hlYWQgLS0+CiAgPHBhdGggZD0iTSAxMDAuMSAxNjYgTCAxMDIuOSAyMDkuMiBMIDYxLjMgMTg1LjIgWiIgZmlsbD0iIzE0QjhBNiIvPgogIDwhLS0gQ2VudGVyIHN0YXI6IHllbGxvdyBmaWxsLCBvcmFuZ2Ugcm91bmRlZCBzdHJva2UgLS0+CiAgPHBhdGggZD0iTSAyNTYgMTY2IEwgMjM0LjggMjI2LjkgTCAxNzAuNCAyMjguMiBMIDIyMS44IDI2Ny4xIEwgMjAzLjEgMzI4LjggTCAyNTYgMjkyIEwgMzA4LjkgMzI4LjggTCAyOTAuMiAyNjcuMSBMIDM0MS42IDIyOC4yIEwgMjc3LjIgMjI2LjkgWiIKICAgICAgICBmaWxsPSIjRkFDQzE1IiBzdHJva2U9IiNGQjkyM0MiIHN0cm9rZS13aWR0aD0iMTYiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==" alt="Spin & Learn logo">
+      <div class="brand-text">
+        <h1>Spin &amp; Learn</h1>
+        <p class="tagline">Paste a word list. Ask. Spin. Earn stars.</p>
+      </div>
+    </div>
+    <div class="score-strip" aria-live="polite">
+      <div class="score-pill">
+        <span aria-hidden="true">⭐</span><span id="star-count">0</span>
+      </div>
+      <div class="score-pill streak">
+        <span aria-hidden="true">🔥</span><span id="streak-count">0</span>
+        <span class="score-label">streak</span>
+      </div>
+    </div>
+    <nav class="header-buttons">
+      <button id="btn-sound" class="icon-btn" title="Sound on/off" aria-label="Toggle sound">🔊</button>
+      <button id="btn-fullscreen" class="icon-btn" title="Fullscreen" aria-label="Toggle fullscreen">⛶</button>
+      <button id="btn-wordlist" class="btn btn-accent">📝 Word Lists</button>
+      <button id="btn-reset" class="btn btn-ghost">↺ Reset</button>
+    </nav>
+  </header>
+
+  <div id="hint-strip">
+    <span id="hint-text">
+      <span>1. Paste your words</span><span class="hint-sep">•</span>
+      <span>2. Ask a question</span><span class="hint-sep">•</span>
+      <span>3. Spin for stars</span>
+    </span>
+    <button id="hint-dismiss" aria-label="Dismiss hint">✕</button>
+  </div>
+
+  <main class="layout">
+    <section class="wheel-wrap card">
+      <div id="pointer" aria-hidden="true"></div>
+      <div id="wheel" role="img" aria-label="Reward wheel">
+        <div id="wheel-center">
+          <div id="wheel-center-stars">⭐ 0</div>
+          <div class="wheel-center-sub">class stars</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="question-card" class="card">
+      <div class="card-kicker">❓ Question</div>
+      <div id="q-text">Loading…</div>
+      <div id="q-hint" class="hidden"></div>
+      <div id="a-text" class="hidden"></div>
+      <div class="card-buttons">
+        <button id="btn-hint" class="btn btn-ghost">💡 Hint</button>
+        <button id="btn-show-answer" class="btn btn-primary">👀 Show Answer</button>
+        <button id="btn-correct" class="btn btn-primary hidden">Correct ✓</button>
+        <button id="btn-tryagain" class="btn btn-accent hidden">Try Again 💪</button>
+        <button id="btn-skip" class="btn btn-ghost">Skip →</button>
+        <button id="btn-next" class="btn btn-primary hidden">Next →</button>
+      </div>
+    </section>
+  </main>
+
+  <div id="reveal-overlay" class="hidden">
+    <div class="reveal-card">
+      <div id="reveal-emoji">⭐</div>
+      <div id="reveal-title">+1 Star</div>
+      <div id="reveal-sub"></div>
+      <button id="btn-reveal-ok" class="btn btn-primary">OK</button>
+    </div>
+  </div>
+
+  <aside id="editor-panel" aria-label="Word list editor">
+    <div class="editor-head">
+      <h2>📝 Word Lists</h2>
+      <button id="editor-close" class="icon-btn" aria-label="Close editor">✕</button>
+    </div>
+    <div class="editor-section">
+      <h3>Starter packs</h3>
+      <div id="pack-list"></div>
+    </div>
+    <div class="editor-section">
+      <h3>Your list</h3>
+      <textarea id="custom-textarea" rows="8" placeholder="question | answer | hint"></textarea>
+      <div class="editor-buttons">
+        <button id="btn-use-list" class="btn btn-primary">Use This List</button>
+        <button id="btn-add-list" class="btn btn-accent">Add to List</button>
+        <button id="btn-clear-list" class="btn btn-ghost">Clear</button>
+      </div>
+      <div class="editor-buttons">
+        <button id="btn-import" class="btn btn-ghost">⬆ Import</button>
+        <input type="file" id="file-import" accept=".json,.csv" hidden>
+        <button id="btn-export-json" class="btn btn-ghost">⬇ JSON</button>
+        <button id="btn-export-csv" class="btn btn-ghost">⬇ CSV</button>
+      </div>
+    </div>
+    <div id="editor-help" class="editor-section"></div>
+    <div id="editor-status" role="status"></div>
+  </aside>
+
+  <script>
+/* ============================================================
+   Spin & Learn — Classroom Reward Spinner
+   config: shared constants (reward table, storage keys).
+   No frameworks, no modules — everything lives on window.SpinLearn.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  function buildRewards() {
+    var rewards = [];
+    function add(count, entry) {
+      for (var i = 0; i < count; i++) {
+        rewards.push({
+          kind: entry.kind,
+          n: entry.n,
+          emoji: entry.emoji,
+          label: entry.label
+        });
+      }
+    }
+    // 24 cells total: 10 + 6 + 3 + 2 + 2 + 1
+    add(10, { kind: 'stars', n: 1, emoji: '⭐', label: '+1' });
+    add(6,  { kind: 'stars', n: 2, emoji: '⭐⭐', label: '+2' });
+    add(3,  { kind: 'stars', n: 3, emoji: '⭐⭐⭐', label: '+3' });
+    add(2,  { kind: 'cheer', n: 0, emoji: '🎉', label: 'Cheer' });
+    add(2,  { kind: 'again', n: 0, emoji: '🔁', label: 'Again' });
+    add(1,  { kind: 'mystery', n: 0, emoji: '🎁', label: '?' });
+    return rewards;
+  }
+
+  window.SpinLearn = window.SpinLearn || {};
+  window.SpinLearn.config = {
+    // true = free online demo (file import/export gated); the paid
+    // single-file download is built with demoMode: false (see build.py).
+    demoMode: false,
+    storageKeys: {
+      custom: 'spinlearn.custom.v1',
+      muted: 'spinlearn.muted.v1',
+      hint: 'spinlearn.hint.v1'
+    },
+    rewards: buildRewards()
+  };
+})();
+
+</script>
+  <script>
+/* ============================================================
+   Spin & Learn — synthesized sound effects.
+   100% WebAudio synthesis: no audio files, no network.
+   Call init() on the first user gesture; mute persists.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var NS = (window.SpinLearn = window.SpinLearn || {});
+  var KEY = 'spinlearn.muted.v1';
+
+  var ctx = null;
+  var master = null;
+  var muted = false;
+  try {
+    muted = localStorage.getItem(KEY) === '1';
+  } catch (e) { /* storage unavailable — stay unmuted */ }
+
+  function ensure() {
+    if (ctx) {
+      if (ctx.state === 'suspended') {
+        ctx.resume();
+      }
+      return true;
+    }
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) {
+      return false;
+    }
+    ctx = new AC();
+    master = ctx.createGain();
+    master.gain.value = muted ? 0.0001 : 0.9;
+    master.connect(ctx.destination);
+    return true;
+  }
+
+  /* One enveloped oscillator note. delay is in seconds from now. */
+  function tone(freq, dur, type, vol, delay, slideTo) {
+    if (!ensure()) {
+      return;
+    }
+    var t0 = ctx.currentTime + (delay || 0);
+    var osc = ctx.createOscillator();
+    var g = ctx.createGain();
+    osc.type = type || 'sine';
+    osc.frequency.setValueAtTime(Math.max(30, freq), t0);
+    if (slideTo) {
+      osc.frequency.exponentialRampToValueAtTime(Math.max(30, slideTo), t0 + dur);
+    }
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(vol || 0.22, t0 + 0.015);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    osc.connect(g);
+    g.connect(master);
+    osc.start(t0);
+    osc.stop(t0 + dur + 0.05);
+  }
+
+  function init() {
+    ensure();
+  }
+
+  function setMuted(m) {
+    muted = !!m;
+    try {
+      localStorage.setItem(KEY, muted ? '1' : '0');
+    } catch (e) { /* ignore */ }
+    if (master) {
+      master.gain.value = muted ? 0.0001 : 0.9;
+    }
+  }
+
+  function isMuted() {
+    return muted;
+  }
+
+  /* Short blip that rises in pitch as the wheel run progresses (0..1). */
+  function tick(progress01) {
+    var p = Math.min(1, Math.max(0, progress01 || 0));
+    tone(340 + p * 560, 0.07, 'square', 0.10);
+  }
+
+  /* Soft shimmer while the highlight hangs before the final steps. */
+  function suspense() {
+    tone(880, 1.1, 'sine', 0.07, 0);
+    tone(1174.66, 1.1, 'sine', 0.055, 0.18);
+    tone(1567.98, 1.1, 'sine', 0.045, 0.36);
+  }
+
+  /* Major arpeggio, ascending — the class celebration sound. */
+  function fanfare() {
+    var notes = [261.63, 329.63, 392.0, 523.25, 659.25, 783.99];
+    for (var i = 0; i < notes.length; i++) {
+      tone(notes[i], 0.34, 'triangle', 0.22, i * 0.11);
+    }
+    tone(1046.5, 0.6, 'triangle', 0.18, notes.length * 0.11);
+  }
+
+  /* One bright ping per star, staggered. */
+  function starChime(n) {
+    n = Math.min(8, Math.max(1, n || 1));
+    for (var i = 0; i < n; i++) {
+      tone(1318.5 + i * 110, 0.28, 'sine', 0.20, i * 0.13);
+    }
+  }
+
+  /* Gentle warm two-tone — encouraging, never sad. */
+  function goodTry() {
+    tone(220, 0.32, 'sine', 0.16, 0);
+    tone(293.66, 0.5, 'sine', 0.16, 0.24);
+  }
+
+  /* Tiny blip for plain button taps. */
+  function click() {
+    tone(720, 0.05, 'square', 0.07);
+  }
+
+  NS.audio = {
+    init: init,
+    setMuted: setMuted,
+    isMuted: isMuted,
+    tick: tick,
+    suspense: suspense,
+    fanfare: fanfare,
+    starChime: starChime,
+    goodTry: goodTry,
+    click: click
+  };
+})();
+
+</script>
+  <script>
+/* ============================================================
+   Spin & Learn — the reward wheel (24-cell light runner).
+   build(wheelEl, rewards): places 24 .cell divs in a circle.
+     Cell i sits at angle i*15deg via rotate(a) translateY(-r);
+     the inner content is counter-rotated so the emoji stays upright.
+   runTo(targetIndex, profile): returns a Promise that spins the
+     highlight with accelerate -> cruise -> decelerate -> suspense
+     dwell -> slow final steps, landing exactly on targetIndex,
+     then resolves with targetIndex. The lit cell uses .lit.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var NS = (window.SpinLearn = window.SpinLearn || {});
+
+  var CELL_COUNT = 24;
+  var STEP_DEG = 360 / CELL_COUNT; // 15 degrees per cell
+
+  var currentIndex = 0;
+  var running = false;
+
+  function setLit(wheelEl, idx) {
+    var lit = wheelEl.querySelectorAll('.cell.lit');
+    for (var i = 0; i < lit.length; i++) {
+      lit[i].classList.remove('lit');
+    }
+    var cell = wheelEl.querySelector('.cell[data-index="' + idx + '"]');
+    if (cell) {
+      cell.classList.add('lit');
+    }
+  }
+
+  function build(wheelEl, rewards) {
+    var old = wheelEl.querySelectorAll('.cell');
+    for (var k = 0; k < old.length; k++) {
+      old[k].remove();
+    }
+    var wheelSize = wheelEl.clientWidth || 400;
+    var ringR = wheelSize / 2 - 58; // center -> cell-center distance
+    for (var i = 0; i < rewards.length; i++) {
+      (function (i) {
+        var reward = rewards[i];
+        var a = i * STEP_DEG;
+        var cell = document.createElement('div');
+        cell.className = 'cell kind-' + reward.kind;
+        cell.setAttribute('data-index', String(i));
+        cell.style.transform = 'rotate(' + a + 'deg) translateY(' + (-ringR) + 'px)';
+        var inner = document.createElement('div');
+        inner.className = 'cell-inner';
+        inner.style.setProperty('--tilt', 'rotate(' + (-a) + 'deg)');
+        var emoji = document.createElement('span');
+        emoji.className = 'cell-emoji';
+        emoji.textContent = reward.emoji;
+        var label = document.createElement('span');
+        label.className = 'cell-label';
+        label.textContent = reward.label;
+        inner.appendChild(emoji);
+        inner.appendChild(label);
+        cell.appendChild(inner);
+        wheelEl.appendChild(cell);
+      })(i);
+    }
+    currentIndex = 0;
+    setLit(wheelEl, 0);
+  }
+
+  function wait(ms) {
+    return new Promise(function (resolve) {
+      setTimeout(resolve, ms);
+    });
+  }
+
+  function advance(wheelEl, progress01) {
+    currentIndex = (currentIndex + 1) % CELL_COUNT;
+    setLit(wheelEl, currentIndex);
+    if (NS.audio && NS.audio.tick) {
+      NS.audio.tick(progress01);
+    }
+  }
+
+  function runTo(targetIndex, profile) {
+    profile = profile || {};
+    if (running) {
+      return Promise.resolve(targetIndex);
+    }
+    running = true;
+
+    var wheelEl = document.getElementById('wheel');
+    var accelSteps = profile.accelSteps || 8;
+    var cruiseSteps = profile.cruiseSteps || Math.round(2.5 * CELL_COUNT);
+    var decelSteps = profile.decelSteps || 14;
+    var dwellMs = profile.dwellMs != null ? profile.dwellMs : 700;
+    var finalStepMs = profile.finalStepMs || 430;
+
+    // Per-step delays for the three phases.
+    var delays = [];
+    var i;
+    for (i = 0; i < accelSteps; i++) {
+      var t = accelSteps > 1 ? i / (accelSteps - 1) : 1;
+      delays.push(140 - (140 - 55) * t); // ~140ms -> ~55ms
+    }
+    for (i = 0; i < cruiseSteps; i++) {
+      delays.push(55); // steady cruise, ~2.5 revolutions
+    }
+    for (i = 0; i < decelSteps; i++) {
+      var u = (i + 1) / decelSteps;
+      delays.push(55 + (380 - 55) * u * u); // eases up to ~380ms
+    }
+
+    // Extra slow steps so the run lands exactly on the target cell.
+    var planned = accelSteps + cruiseSteps + decelSteps;
+    var afterPlanned = (currentIndex + planned) % CELL_COUNT;
+    var finalSteps = (targetIndex - afterPlanned + CELL_COUNT) % CELL_COUNT;
+    var total = planned + finalSteps;
+
+    var done = 0;
+    var chain = Promise.resolve();
+    delays.forEach(function (d) {
+      chain = chain.then(function () {
+        done += 1;
+        advance(wheelEl, done / (total + 1));
+        return wait(d);
+      });
+    });
+    chain = chain.then(function () {
+      if (NS.audio && NS.audio.suspense) {
+        NS.audio.suspense();
+      }
+      return wait(dwellMs); // 700ms suspense dwell
+    });
+    for (i = 0; i < finalSteps; i++) {
+      chain = chain.then(function () {
+        done += 1;
+        advance(wheelEl, Math.min(1, done / (total + 1)));
+        return wait(finalStepMs);
+      });
+    }
+    return chain.then(function () {
+      running = false;
+      currentIndex = ((targetIndex % CELL_COUNT) + CELL_COUNT) % CELL_COUNT;
+      setLit(wheelEl, currentIndex);
+      return currentIndex;
+    });
+  }
+
+  NS.spinner = {
+    build: build,
+    runTo: runTo,
+    getCurrentIndex: function () {
+      return currentIndex;
+    }
+  };
+})();
+
+</script>
+  <script>
+/* ============================================================
+   Spin & Learn — word list content.
+   Starter packs load from packs/<id>.json (shape: {items:[{q,a,hint}]}),
+   falling back to window.SpinLearnEmbeddedPacks[id] when the fetch
+   fails (e.g. opened from the file system). Teachers can paste,
+   import (.json/.csv), and export their own lists; the custom list
+   persists in localStorage.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var NS = (window.SpinLearn = window.SpinLearn || {});
+  var KEY = 'spinlearn.custom.v1';
+
+  var PACKS = [
+    { id: 'esl-basic', name: 'ESL Basic Words' },
+    { id: 'math', name: 'Math Facts' },
+    { id: 'blank', name: 'Blank / Custom' }
+  ];
+
+  /* Built-in fallback content (original material) used only when the
+     packs/*.json files cannot be fetched. */
+  window.SpinLearnEmbeddedPacks = {
+    'esl-basic': {
+      items: [
+        { q: 'apple', a: 'A round red fruit', hint: 'It grows on trees' },
+        { q: 'banana', a: 'A long yellow fruit', hint: 'Monkeys love it' },
+        { q: 'cat', a: 'A small pet', hint: 'It says meow' },
+        { q: 'dog', a: 'A loyal pet', hint: 'It says woof' },
+        { q: 'bird', a: 'A flying animal', hint: 'It has wings' },
+        { q: 'fish', a: 'A swimming animal', hint: 'It lives in water' },
+        { q: 'sun', a: 'The bright star in our sky', hint: 'It shines in the day' },
+        { q: 'moon', a: 'It glows at night', hint: 'It is not the sun' },
+        { q: 'book', a: 'You read it', hint: 'It has pages' },
+        { q: 'tree', a: 'A tall plant', hint: 'It has leaves' },
+        { q: 'water', a: 'You drink it', hint: 'It flows in rivers' },
+        { q: 'happy', a: 'A good feeling', hint: 'The opposite of sad' }
+      ]
+    },
+    'math': {
+      items: [
+        { q: '7 + 5', a: '12', hint: 'Count up from 7' },
+        { q: '9 + 6', a: '15', hint: '9 plus 6' },
+        { q: '4 + 8', a: '12', hint: 'Start at 8 and add 4' },
+        { q: '10 + 9', a: '19', hint: 'Almost 20' },
+        { q: '3 x 4', a: '12', hint: 'Double 2 x 6' },
+        { q: '5 x 5', a: '25', hint: 'A square number' },
+        { q: '2 x 9', a: '18', hint: 'Double 9' },
+        { q: '12 - 5', a: '7', hint: 'Count back from 12' },
+        { q: '15 - 8', a: '7', hint: '15 minus 10, plus 2' },
+        { q: '20 - 6', a: '14', hint: '20 minus 10, plus 4' },
+        { q: '6 + 7', a: '13', hint: '6 plus 6, plus 1' },
+        { q: '4 x 5', a: '20', hint: 'Four nickels' }
+      ]
+    },
+    'blank': { items: [] }
+  };
+
+  var items = [];
+  var listeners = [];
+
+  function str(v) {
+    return v == null ? '' : String(v);
+  }
+
+  function normalize(raw) {
+    var out = [];
+    (raw || []).forEach(function (entry) {
+      if (!entry || typeof entry !== 'object') {
+        return;
+      }
+      var q = str(entry.q || entry.question).trim();
+      if (!q) {
+        return;
+      }
+      out.push({
+        q: q,
+        a: str(entry.a || entry.answer).trim(),
+        hint: str(entry.hint).trim()
+      });
+    });
+    return out;
+  }
+
+  /* Accept either a bare array or the pack shape {items:[...]}. */
+  function listFromData(data) {
+    if (Array.isArray(data)) {
+      return normalize(data);
+    }
+    if (data && Array.isArray(data.items)) {
+      return normalize(data.items);
+    }
+    return [];
+  }
+
+  function notify() {
+    var snapshot = getItems();
+    listeners.forEach(function (cb) {
+      try {
+        cb(snapshot);
+      } catch (e) { /* listener errors must not break content */ }
+    });
+  }
+
+  function persist() {
+    try {
+      localStorage.setItem(KEY, JSON.stringify(items));
+    } catch (e) { /* ignore */ }
+  }
+
+  /* Load a starter pack. activate=false previews without switching lists. */
+  function loadPack(id, activate) {
+    var doActivate = activate !== false;
+    return fetch('packs/' + id + '.json')
+      .then(function (res) {
+        if (!res.ok) {
+          throw new Error('pack not found');
+        }
+        return res.json();
+      })
+      .catch(function () {
+        var emb = window.SpinLearnEmbeddedPacks || {};
+        return emb[id] || { items: [] };
+      })
+      .then(function (data) {
+        var list = listFromData(data);
+        if (doActivate) {
+          items = list;
+          notify();
+        }
+        return list;
+      });
+  }
+
+  function getItems() {
+    return items.slice();
+  }
+
+  function getCustomList() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (!raw) {
+        return null;
+      }
+      var list = listFromData(JSON.parse(raw));
+      return list.length ? list : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function setCustomList(list) {
+    items = normalize(list);
+    persist();
+    notify();
+    return items.length;
+  }
+
+  function addToCustom(list) {
+    items = items.concat(normalize(list));
+    persist();
+    notify();
+    return items.length;
+  }
+
+  function clearCustom() {
+    items = [];
+    try {
+      localStorage.removeItem(KEY);
+    } catch (e) { /* ignore */ }
+    notify();
+  }
+
+  /* One item per line: question | answer | hint (only question required). */
+  function parseTextarea(text) {
+    var out = [];
+    String(text || '')
+      .split(/\r?\n/)
+      .forEach(function (line) {
+        if (!line.trim()) {
+          return;
+        }
+        var parts = line.split('|');
+        var q = (parts[0] || '').trim();
+        if (!q) {
+          return;
+        }
+        out.push({
+          q: q,
+          a: (parts[1] || '').trim(),
+          hint: (parts[2] || '').trim()
+        });
+      });
+    return out;
+  }
+
+  function parseCSV(text) {
+    var rows = [];
+    var row = [];
+    var field = '';
+    var inQuotes = false;
+    var src = String(text || '');
+    for (var i = 0; i < src.length; i++) {
+      var ch = src[i];
+      if (inQuotes) {
+        if (ch === '"') {
+          if (src[i + 1] === '"') {
+            field += '"';
+            i++;
+          } else {
+            inQuotes = false;
+          }
+        } else {
+          field += ch;
+        }
+      } else if (ch === '"') {
+        inQuotes = true;
+      } else if (ch === ',') {
+        row.push(field);
+        field = '';
+      } else if (ch === '\n') {
+        row.push(field);
+        rows.push(row);
+        row = [];
+        field = '';
+      } else if (ch === '\r') {
+        /* skip */
+      } else {
+        field += ch;
+      }
+    }
+    row.push(field);
+    rows.push(row);
+    return rows.filter(function (r) {
+      return r.some(function (c) {
+        return String(c).trim() !== '';
+      });
+    });
+  }
+
+  function isHeaderRow(row) {
+    return (
+      String(row[0] || '').trim().toLowerCase() === 'q' &&
+      (row.length < 2 || String(row[1] || '').trim().toLowerCase() === 'a') &&
+      (row.length < 3 || String(row[2] || '').trim().toLowerCase() === 'hint')
+    );
+  }
+
+  function importJSON(text) {
+    var data = JSON.parse(text);
+    return setCustomList(listFromData(data));
+  }
+
+  function importCSV(text) {
+    var rows = parseCSV(text);
+    if (rows.length && isHeaderRow(rows[0])) {
+      rows.shift();
+    }
+    var list = rows.map(function (r) {
+      return {
+        q: String(r[0] || '').trim(),
+        a: String(r[1] || '').trim(),
+        hint: String(r[2] || '').trim()
+      };
+    });
+    return setCustomList(list);
+  }
+
+  function download(filename, text, mime) {
+    var blob = new Blob([text], { type: mime });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function () {
+      URL.revokeObjectURL(url);
+      a.remove();
+    }, 500);
+  }
+
+  function csvCell(v) {
+    v = str(v);
+    return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
+  }
+
+  function exportJSON() {
+    download('spinlearn-list.json', JSON.stringify(getItems(), null, 2), 'application/json');
+  }
+
+  function exportCSV() {
+    var lines = ['q,a,hint'];
+    getItems().forEach(function (it) {
+      lines.push([csvCell(it.q), csvCell(it.a), csvCell(it.hint)].join(','));
+    });
+    download('spinlearn-list.csv', lines.join('\n'), 'text/csv');
+  }
+
+  function onChange(cb) {
+    if (typeof cb === 'function') {
+      listeners.push(cb);
+    }
+  }
+
+  NS.content = {
+    PACKS: PACKS,
+    loadPack: loadPack,
+    getItems: getItems,
+    setCustomList: setCustomList,
+    getCustomList: getCustomList,
+    addToCustom: addToCustom,
+    clearCustom: clearCustom,
+    parseTextarea: parseTextarea,
+    importJSON: importJSON,
+    importCSV: importCSV,
+    exportJSON: exportJSON,
+    exportCSV: exportCSV,
+    onChange: onChange
+  };
+})();
+
+</script>
+<script>
+window.SpinLearnEmbeddedPacks = {"blank": {"_instructions": "Use this pack to make your own word list. In the Word List panel, paste or type one item per line in this format: question | answer | hint. The question part is required; answer and hint are optional. Example line: apple | 苹果 | a round red fruit. A line with only a question works too: apple. Save your list to keep it in this pack.", "description": "An empty pack for your own words. Paste a list in the Word List panel and this pack fills up automatically.", "items": [], "name": "Blank / Custom"}, "esl-basic": {"description": "24 simple English nouns for young learners, with Chinese meanings and short English clues.", "items": [{"a": "苹果", "hint": "a round red fruit", "q": "apple"}, {"a": "香蕉", "hint": "a long yellow fruit", "q": "banana"}, {"a": "猫", "hint": "a pet that says meow", "q": "cat"}, {"a": "狗", "hint": "a pet that says woof", "q": "dog"}, {"a": "鸟", "hint": "it has wings and can fly", "q": "bird"}, {"a": "鱼", "hint": "it lives in water and swims", "q": "fish"}, {"a": "太阳", "hint": "it is bright in the sky in the day", "q": "sun"}, {"a": "月亮", "hint": "it is round in the sky at night", "q": "moon"}, {"a": "星星", "hint": "it shines in the night sky", "q": "star"}, {"a": "树", "hint": "it has leaves and grows tall", "q": "tree"}, {"a": "花", "hint": "it is pretty and grows in the garden", "q": "flower"}, {"a": "汽车", "hint": "it has four wheels and you drive it", "q": "car"}, {"a": "公交车", "hint": "it is big and takes many people", "q": "bus"}, {"a": "火车", "hint": "it runs on rails", "q": "train"}, {"a": "书", "hint": "you read it", "q": "book"}, {"a": "钢笔", "hint": "you write with it", "q": "pen"}, {"a": "学校", "hint": "you learn there", "q": "school"}, {"a": "老师", "hint": "the person who teaches you", "q": "teacher"}, {"a": "朋友", "hint": "someone you play with", "q": "friend"}, {"a": "开心的", "hint": "you smile when you feel this", "q": "happy"}, {"a": "红色", "hint": "the color of an apple", "q": "red"}, {"a": "蓝色", "hint": "the color of the sky", "q": "blue"}, {"a": "大的", "hint": "an elephant is this", "q": "big"}, {"a": "小的", "hint": "a mouse is this", "q": "small"}], "name": "ESL Basic"}, "math": {"description": "24 quick math questions: addition and subtraction within 20, plus multiplication with 2x to 5x tables.", "items": [{"a": "12", "hint": "count up from 7", "q": "7 + 5"}, {"a": "15", "hint": "9 plus 6", "q": "9 + 6"}, {"a": "12", "hint": "start at 8 and add 4", "q": "4 + 8"}, {"a": "19", "hint": "almost 20", "q": "10 + 9"}, {"a": "10", "hint": "two hands", "q": "5 + 5"}, {"a": "8", "hint": "count back from 12", "q": "12 - 4"}, {"a": "8", "hint": "15 take away 7", "q": "15 - 7"}, {"a": "11", "hint": "count back from 20", "q": "20 - 9"}, {"a": "8", "hint": "13 minus 5", "q": "13 - 5"}, {"a": "12", "hint": "half of 18 plus 3", "q": "18 - 6"}, {"a": "13", "hint": "6 and 7", "q": "6 + 7"}, {"a": "19", "hint": "almost 20", "q": "11 + 8"}, {"a": "6", "hint": "14 take away 8", "q": "14 - 8"}, {"a": "19", "hint": "16 plus 3", "q": "16 + 3"}, {"a": "18", "hint": "double 9", "q": "9 + 9"}, {"a": "8", "hint": "17 take away 9", "q": "17 - 9"}, {"a": "6", "hint": "3 plus 3", "q": "2 x 3"}, {"a": "10", "hint": "count by twos five times", "q": "2 x 5"}, {"a": "12", "hint": "4 plus 4 plus 4", "q": "3 x 4"}, {"a": "8", "hint": "double 4", "q": "4 x 2"}, {"a": "25", "hint": "five fives", "q": "5 x 5"}, {"a": "9", "hint": "three threes", "q": "3 x 3"}, {"a": "20", "hint": "five fours", "q": "4 x 5"}, {"a": "14", "hint": "double 7", "q": "2 x 7"}], "name": "Math"}};
+</script>
+  <script>
+/* ============================================================
+   Spin & Learn — game flow controller.
+   Phases: idle -> question -> answering -> spinning -> reveal
+   -> rewarded. Correct answers earn a weighted wheel spin;
+   wrong answers get an encouraging sound and the next question.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var NS = (window.SpinLearn = window.SpinLearn || {});
+
+  function $(id) {
+    return document.getElementById(id);
+  }
+  function show(el) {
+    el.classList.remove('hidden');
+  }
+  function hide(el) {
+    el.classList.add('hidden');
+  }
+
+  var state = { stars: 0, streak: 0, phase: 'idle', currentItem: null };
+  var pool = []; // indexes not yet asked (shuffled, no repeats)
+  var spinning = false;
+  var revealTimer = null;
+
+  function shuffled(n) {
+    var arr = [];
+    for (var i = 0; i < n; i++) {
+      arr.push(i);
+    }
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = tmp;
+    }
+    return arr;
+  }
+
+  function renderScores() {
+    $('star-count').textContent = String(state.stars);
+    $('streak-count').textContent = String(state.streak);
+    $('wheel-center-stars').textContent = '⭐ ' + state.stars;
+  }
+
+  function newQuestion() {
+    if (spinning) {
+      return;
+    }
+    var list = NS.content.getItems();
+    if (!list.length) {
+      state.phase = 'idle';
+      state.currentItem = null;
+      $('q-text').textContent = 'No words yet — open “Word Lists” to add some! 📝';
+      hide($('q-hint'));
+      hide($('a-text'));
+      hide($('btn-hint'));
+      hide($('btn-show-answer'));
+      hide($('btn-correct'));
+      hide($('btn-tryagain'));
+      hide($('btn-skip'));
+      hide($('btn-next'));
+      return;
+    }
+    if (!pool.length) {
+      pool = shuffled(list.length);
+    }
+    var idx = pool.pop();
+    state.currentItem = list[idx];
+    state.phase = 'question';
+    $('q-text').textContent = state.currentItem.q;
+    $('q-hint').textContent = state.currentItem.hint || '(No hint for this one)';
+    $('a-text').textContent = state.currentItem.a || '(Open answer)';
+    hide($('q-hint'));
+    hide($('a-text'));
+    show($('btn-hint'));
+    show($('btn-show-answer'));
+    show($('btn-skip'));
+    hide($('btn-correct'));
+    hide($('btn-tryagain'));
+    hide($('btn-next'));
+  }
+
+  function showAnswer() {
+    if (state.phase !== 'question' || !state.currentItem) {
+      return;
+    }
+    NS.audio.click();
+    show($('a-text'));
+    hide($('btn-show-answer'));
+    show($('btn-correct'));
+    show($('btn-tryagain'));
+    state.phase = 'answering';
+  }
+
+  function toggleHint() {
+    NS.audio.click();
+    $('q-hint').classList.toggle('hidden');
+  }
+
+  /* Weighted reward draw: 50% +1, 25% +2, 12% +3, 5% cheer, 5% again, 3% mystery. */
+  function pickReward() {
+    var r = Math.random();
+    if (r < 0.5) {
+      return { kind: 'stars', n: 1 };
+    }
+    if (r < 0.75) {
+      return { kind: 'stars', n: 2 };
+    }
+    if (r < 0.87) {
+      return { kind: 'stars', n: 3 };
+    }
+    if (r < 0.92) {
+      return { kind: 'cheer' };
+    }
+    if (r < 0.97) {
+      return { kind: 'again' };
+    }
+    return { kind: 'mystery' };
+  }
+
+  function pickNonAgain() {
+    var p = pickReward();
+    while (p.kind === 'again') {
+      p = pickReward();
+    }
+    return p;
+  }
+
+  /* A random wheel cell index holding the requested reward kind. */
+  function cellIndexFor(kind, n) {
+    var rewards = NS.config.rewards;
+    var matches = [];
+    for (var i = 0; i < rewards.length; i++) {
+      if (rewards[i].kind !== kind) {
+        continue;
+      }
+      if (kind === 'stars' && rewards[i].n !== n) {
+        continue;
+      }
+      matches.push(i);
+    }
+    if (!matches.length) {
+      return Math.floor(Math.random() * rewards.length);
+    }
+    return matches[Math.floor(Math.random() * matches.length)];
+  }
+
+  function wait(ms) {
+    return new Promise(function (resolve) {
+      setTimeout(resolve, ms);
+    });
+  }
+
+  function reveal(emoji, title, sub) {
+    if (revealTimer) {
+      clearTimeout(revealTimer);
+      revealTimer = null;
+    }
+    $('reveal-emoji').textContent = emoji;
+    $('reveal-title').textContent = title;
+    $('reveal-sub').textContent = sub || '';
+    show($('reveal-overlay'));
+    // Screenshot hook: ?shot in the URL keeps the overlay visible.
+    if (window.location.search.indexOf('shot') === -1) {
+      revealTimer = setTimeout(hideReveal, 2500);
+    }
+  }
+
+  function hideReveal() {
+    if (revealTimer) {
+      clearTimeout(revealTimer);
+      revealTimer = null;
+    }
+    hide($('reveal-overlay'));
+  }
+
+  function confetti() {
+    var emojis = ['⭐', '🎉', '✨', '🎊', '🌟'];
+    for (var i = 0; i < 48; i++) {
+      (function (i) {
+        var s = document.createElement('span');
+        s.className = 'confetti-piece';
+        s.textContent = emojis[i % emojis.length];
+        s.style.left = Math.random() * 100 + 'vw';
+        s.style.fontSize = 16 + Math.random() * 26 + 'px';
+        s.style.animationDuration = 1.6 + Math.random() * 1.6 + 's';
+        s.style.animationDelay = Math.random() * 0.4 + 's';
+        document.body.appendChild(s);
+        setTimeout(function () {
+          s.remove();
+        }, 3800);
+      })(i);
+    }
+  }
+
+  function applyReward(reward) {
+    if (reward.kind === 'stars') {
+      state.stars += reward.n;
+      NS.audio.starChime(reward.n);
+      reveal(
+        reward.emoji,
+        '+' + reward.n + (reward.n > 1 ? ' Stars' : ' Star'),
+        state.streak > 1 ? 'Streak 🔥 ' + state.streak + ' — keep it going!' : 'Great work, class!'
+      );
+    } else if (reward.kind === 'cheer') {
+      NS.audio.fanfare();
+      confetti();
+      reveal('🎉', 'Class Cheer!', 'Everybody celebrate together!');
+    } else if (reward.kind === 'mystery') {
+      var n = 1 + Math.floor(Math.random() * 5); // 1–5 stars
+      state.stars += n;
+      NS.audio.starChime(n);
+      reveal('🎁', 'Mystery! +' + n + (n > 1 ? ' Stars' : ' Star'), 'A surprise for the class!');
+    }
+    renderScores();
+    return Promise.resolve();
+  }
+
+  /* One spin; 'again' cells chain into another spin (max chain of 3). */
+  function spinSequence(chain) {
+    var pick = chain >= 3 ? pickNonAgain() : pickReward();
+    var target = cellIndexFor(pick.kind, pick.n);
+    return NS.spinner.runTo(target).then(function () {
+      var reward = NS.config.rewards[target];
+      if (reward.kind === 'again' && chain < 3) {
+        reveal('🔁', 'Spin Again!', 'The wheel spins once more…');
+        return wait(1500).then(function () {
+          hideReveal();
+          return spinSequence(chain + 1);
+        });
+      }
+      return applyReward(reward);
+    });
+  }
+
+  function markCorrect() {
+    if (state.phase !== 'answering' || spinning) {
+      return;
+    }
+    spinning = true;
+    state.phase = 'spinning';
+    state.streak += 1;
+    renderScores();
+    hide($('btn-correct'));
+    hide($('btn-tryagain'));
+    hide($('btn-hint'));
+    spinSequence(0).then(function () {
+      spinning = false;
+      state.phase = 'rewarded';
+      show($('btn-next'));
+    });
+  }
+
+  function markTryAgain() {
+    if (spinning) {
+      return;
+    }
+    if (state.phase !== 'answering' && state.phase !== 'question') {
+      return;
+    }
+    NS.audio.goodTry();
+    state.streak = 0;
+    renderScores();
+    newQuestion();
+  }
+
+  function skip() {
+    if (spinning) {
+      return;
+    }
+    NS.audio.click();
+    newQuestion();
+  }
+
+  function reset() {
+    if (!window.confirm('Reset stars and streak to zero?')) {
+      return;
+    }
+    state.stars = 0;
+    state.streak = 0;
+    renderScores();
+    if (!spinning) {
+      newQuestion();
+    }
+  }
+
+  function getState() {
+    return { stars: state.stars, streak: state.streak, phase: state.phase };
+  }
+
+  function toggleSound() {
+    NS.audio.init();
+    NS.audio.setMuted(!NS.audio.isMuted());
+    $('btn-sound').textContent = NS.audio.isMuted() ? '🔇' : '🔊';
+  }
+
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(function () {});
+      }
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
+
+  function dismissHint() {
+    NS.audio.click();
+    hide($('hint-strip'));
+    try {
+      localStorage.setItem(NS.config.storageKeys.hint, '1');
+    } catch (e) { /* ignore */ }
+  }
+
+  function init() {
+    NS.spinner.build($('wheel'), NS.config.rewards);
+    renderScores();
+
+    var gestureInit = function () {
+      NS.audio.init();
+    };
+    window.addEventListener('pointerdown', gestureInit, { once: true });
+    window.addEventListener('keydown', gestureInit, { once: true });
+
+    $('btn-show-answer').addEventListener('click', showAnswer);
+    $('btn-correct').addEventListener('click', markCorrect);
+    $('btn-tryagain').addEventListener('click', markTryAgain);
+    $('btn-skip').addEventListener('click', skip);
+    $('btn-next').addEventListener('click', function () {
+      NS.audio.click();
+      newQuestion();
+    });
+    $('btn-hint').addEventListener('click', toggleHint);
+    $('btn-sound').addEventListener('click', toggleSound);
+    $('btn-fullscreen').addEventListener('click', toggleFullscreen);
+    $('btn-reset').addEventListener('click', reset);
+    $('btn-wordlist').addEventListener('click', function () {
+      NS.audio.click();
+      NS.editor.open();
+    });
+    $('hint-dismiss').addEventListener('click', dismissHint);
+    $('btn-reveal-ok').addEventListener('click', hideReveal);
+
+    if (NS.audio.isMuted()) {
+      $('btn-sound').textContent = '🔇';
+    }
+
+    // First visit shows the hint strip; dismissal persists.
+    try {
+      if (localStorage.getItem(NS.config.storageKeys.hint)) {
+        hide($('hint-strip'));
+      }
+    } catch (e) { /* ignore */ }
+
+    NS.content.onChange(function () {
+      pool = [];
+      if (!spinning) {
+        newQuestion();
+      }
+    });
+
+    // Prefer the teacher's saved custom list; otherwise load ESL Basic.
+    var custom = NS.content.getCustomList();
+    if (custom && custom.length) {
+      NS.content.setCustomList(custom);
+    } else {
+      NS.content.loadPack('esl-basic');
+    }
+  }
+
+  NS.game = {
+    init: init,
+    newQuestion: newQuestion,
+    showAnswer: showAnswer,
+    markCorrect: markCorrect,
+    markTryAgain: markTryAgain,
+    skip: skip,
+    reset: reset,
+    getState: getState
+  };
+})();
+
+</script>
+  <script>
+/* ============================================================
+   Spin & Learn — word list editor drawer.
+   Pack buttons, textarea editing ("Use This List" / "Add to List"
+   / "Clear"), file import (.json/.csv), JSON/CSV export, help text.
+   Boot: starts game + editor once the DOM is ready.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var NS = (window.SpinLearn = window.SpinLearn || {});
+
+  function $(id) {
+    return document.getElementById(id);
+  }
+
+  function status(msg) {
+    $('editor-status').textContent = msg;
+  }
+
+  function serialize(list) {
+    return list
+      .map(function (it) {
+        var line = it.q;
+        if (it.a || it.hint) {
+          line += ' | ' + it.a;
+        }
+        if (it.hint) {
+          line += ' | ' + it.hint;
+        }
+        return line;
+      })
+      .join('\n');
+  }
+
+  /* Load a starter pack into the textarea for review (does not switch
+     the active list until "Use This List" is pressed). */
+  function loadPackPreview(id, name) {
+    status('Loading ' + name + '…');
+    NS.content
+      .loadPack(id, false)
+      .then(function (list) {
+        $('custom-textarea').value = serialize(list);
+        status('Loaded “' + name + '” (' + list.length + ' items). Press “Use This List” to activate it.');
+      })
+      .catch(function () {
+        status('Could not load ' + name + '.');
+      });
+  }
+
+  function useList() {
+    var list = NS.content.parseTextarea($('custom-textarea').value);
+    if (!list.length) {
+      status('Nothing to use — the text area is empty.');
+      return;
+    }
+    NS.content.setCustomList(list);
+    status('✓ List ready: ' + list.length + ' items');
+  }
+
+  function addList() {
+    var list = NS.content.parseTextarea($('custom-textarea').value);
+    if (!list.length) {
+      status('Nothing to add — the text area is empty.');
+      return;
+    }
+    var total = NS.content.addToCustom(list);
+    status('✓ Added ' + list.length + ' items (' + total + ' total)');
+  }
+
+  function clearList() {
+    if (!window.confirm('Clear your custom word list?')) {
+      return;
+    }
+    NS.content.clearCustom();
+    $('custom-textarea').value = '';
+    status('List cleared.');
+  }
+
+  function importFile() {
+    $('file-import').click();
+  }
+
+  // Demo gate: file import/export is a paid-version feature. Pasting
+  // lists (the core classroom flow) always works and is never gated.
+  function paidOnly(fn) {
+    return function () {
+      if (NS.config.demoMode) {
+        status('File import/export comes with the full version ' +
+               '($9 Personal). Pasting a list here works fully — ' +
+               'and your list is saved automatically.');
+        return;
+      }
+      fn();
+    };
+  }
+
+  function onFileChosen(evt) {
+    var file = evt.target.files && evt.target.files[0];
+    evt.target.value = '';
+    if (!file) {
+      return;
+    }
+    var name = file.name || '';
+    var ext = name.split('.').pop().toLowerCase();
+    var reader = new FileReader();
+    reader.onload = function () {
+      try {
+        var count;
+        if (ext === 'json') {
+          count = NS.content.importJSON(String(reader.result));
+        } else if (ext === 'csv') {
+          count = NS.content.importCSV(String(reader.result));
+        } else {
+          status('Please choose a .json or .csv file.');
+          return;
+        }
+        $('custom-textarea').value = serialize(NS.content.getItems());
+        status('✓ Imported ' + count + ' items from ' + name);
+      } catch (err) {
+        status('Import failed: ' + (err && err.message ? err.message : 'bad file'));
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  function open() {
+    var custom = NS.content.getCustomList();
+    if (custom && custom.length && !$('custom-textarea').value) {
+      $('custom-textarea').value = serialize(custom);
+    }
+    $('editor-panel').classList.add('open');
+  }
+
+  function close() {
+    $('editor-panel').classList.remove('open');
+  }
+
+  function toggle() {
+    if ($('editor-panel').classList.contains('open')) {
+      close();
+    } else {
+      open();
+    }
+  }
+
+  function init() {
+    var list = $('pack-list');
+    list.innerHTML = '';
+    NS.content.PACKS.forEach(function (p) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'btn btn-ghost pack-btn';
+      b.textContent = p.name;
+      b.addEventListener('click', function () {
+        loadPackPreview(p.id, p.name);
+      });
+      list.appendChild(b);
+    });
+
+    $('btn-use-list').addEventListener('click', useList);
+    $('btn-add-list').addEventListener('click', addList);
+    $('btn-clear-list').addEventListener('click', clearList);
+    $('btn-import').addEventListener('click', paidOnly(importFile));
+    $('file-import').addEventListener('change', onFileChosen);
+    $('btn-export-json').addEventListener('click', paidOnly(function () {
+      NS.content.exportJSON();
+      status('JSON exported.');
+    }));
+    $('btn-export-csv').addEventListener('click', paidOnly(function () {
+      NS.content.exportCSV();
+      status('CSV exported.');
+    }));
+    $('editor-close').addEventListener('click', close);
+    window.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        close();
+      }
+    });
+
+    $('editor-help').innerHTML =
+      '<h3>Format</h3>' +
+      '<p>One item per line:</p>' +
+      '<p class="format-line"><code>question | answer | hint</code></p>' +
+      '<p>Only the question is required. Example:</p>' +
+      '<p class="format-line"><code>7 x 8 | 56 | Think 7 x 7 = 49, plus 7</code></p>' +
+      '<p>Import accepts JSON arrays (or <code>{items: [...]}</code>) and ' +
+      'CSV files with <code>q,a,hint</code> columns (a header row is optional).</p>';
+  }
+
+  NS.editor = {
+    init: init,
+    open: open,
+    close: close,
+    toggle: toggle
+  };
+
+  function boot() {
+    NS.game.init();
+    NS.editor.init();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+
+</script>
+</body>
+</html>

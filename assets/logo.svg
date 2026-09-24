@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Spin and Learn logo: a circular spin arrow circling a star">
+  <title>Spin &amp; Learn logo</title>
+  <!-- Confetti dots -->
+  <circle cx="78" cy="368" r="14" fill="#14B8A6"/>
+  <circle cx="436" cy="128" r="16" fill="#FB923C"/>
+  <circle cx="448" cy="352" r="12" fill="#FACC15"/>
+  <circle cx="92" cy="128" r="12" fill="#FB923C"/>
+  <circle cx="392" cy="424" r="14" fill="#14B8A6"/>
+  <!-- Circular spin arrow (clockwise), teal, thick rounded stroke -->
+  <path d="M 256 76 A 180 180 0 1 1 100.1 166" fill="none" stroke="#14B8A6" stroke-width="44" stroke-linecap="round"/>
+  <!-- Arrowhead -->
+  <path d="M 100.1 166 L 102.9 209.2 L 61.3 185.2 Z" fill="#14B8A6"/>
+  <!-- Center star: yellow fill, orange rounded stroke -->
+  <path d="M 256 166 L 234.8 226.9 L 170.4 228.2 L 221.8 267.1 L 203.1 328.8 L 256 292 L 308.9 328.8 L 290.2 267.1 L 341.6 228.2 L 277.2 226.9 Z"
+        fill="#FACC15" stroke="#FB923C" stroke-width="16" stroke-linejoin="round"/>
+</svg>
